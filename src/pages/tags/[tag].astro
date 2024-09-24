@@ -1,0 +1,67 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+
+export async function getStaticPaths() {
+const allPosts = await Astro.glob('../posts/*.md');
+
+  // return [
+  //   { params: { tag: "astro" } },
+  //   { params: { tag: "successes" } },
+  //   { params: { tag: "community" } },
+  //   { params: { tag: "blogging" } },
+  //   { params: { tag: "setbacks" } },
+  //   { params: { tag: "learning in public" } },
+  // ];
+
+  // return [
+  //   {params: {tag: "astro"}, props: {posts: allPosts}},
+  //   {params: {tag: "successes"}, props: {posts: allPosts}},
+  //   {params: {tag: "community"}, props: {posts: allPosts}},
+  //   {params: {tag: "blogging"}, props: {posts: allPosts}},
+  //   {params: {tag: "setbacks"}, props: {posts: allPosts}},
+  //   {params: {tag: "learning in public"}, props: {posts: allPosts}}
+  // ];
+
+  const uniqueTags = [
+    ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
+  ];
+  
+  return uniqueTags.map((tag) => {
+  const filteredPosts = allPosts.filter((post) => post.frontmatter.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+});
+
+  // return posts.map((post) => ({
+  // 	params: { slug: post.slug },
+  // 	props: post,
+  // }));
+}
+// type Props = CollectionEntry<'blog'>;
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+// const filteredPosts = posts.filter((post) =>
+//   post.frontmatter.tags?.includes(tag)
+// );
+---
+
+<Layout title={tag}>
+  <p>Posts tagged with {tag}</p>
+  <ul>
+    <!-- <ul>
+      {filteredPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+    </ul> -->
+    <!-- {
+      filteredPosts.map((post) => (
+        <BlogPost url={post.url} title={post.frontmatter.title} />
+      ))
+    } -->
+
+
+      {posts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+    </ul>
+</Layout>
