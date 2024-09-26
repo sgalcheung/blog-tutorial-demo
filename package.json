@@ -1,7 +1,7 @@
 {
   "name": "blog-tutorial",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,12 +10,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.7.0",
-    "@astrojs/mdx": "^3.1.1",
-    "@astrojs/node": "^8.3.1",
-    "@astrojs/rss": "^4.0.6",
+    "@astrojs/check": "^0.9.3",
+    "@astrojs/mdx": "4.0.0-beta.1",
+    "@astrojs/node": "9.0.0-beta.2",
+    "@astrojs/rss": "^4.0.7",
     "@tryghost/content-api": "^1.11.21",
-    "astro": "^4.10.2",
+    "astro": "5.0.0-beta.1",
     "typescript": "^5.4.5"
   },
   "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631",

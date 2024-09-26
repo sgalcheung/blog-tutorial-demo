@@ -1,17 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BlogPost from '../components/BlogPost.astro';
-import { ghostClient } from '../lib/ghost';
+import { getCollection } from 'astro:content';
+// import { ghostClient } from '../lib/ghost';
 
-const ghostPosts = await ghostClient.posts
-    .browse({
-        limit: 'all',
-    });
+// const ghostPosts = await ghostClient.posts
+//     .browse({
+//         limit: 'all',
+//     });
     // .catch((err) => {
     //     console.error(err);
     // });
+// const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 
-const allPosts = await Astro.glob('../pages/posts/*.md');
+// Get all entries from a collection.
+// Requires the name of the collection as an argument.
+const allPosts = await getCollection('blog');
+
 const pageTitle = "My Astro Learning Blog";
 ---
 
@@ -53,9 +58,9 @@ const pageTitle = "My Astro Learning Blog";
             <li><a href="/posts/post-3/">Post 3</a></li> -->
 
             <!-- {allPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)} -->
-            {allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
+            {allPosts.map((post) => <BlogPost url={`posts/${post.id}`} title={post.data.title} />)}
 
-            {ghostPosts.map((post) => <BlogPost url=`/post/${post.slug}` title={post.title} />)}
+            <!-- {ghostPosts.map((post) => <BlogPost url=`/post/${post.slug}` title={post.title} />)} -->
         </ul>
 	</main>
 </Layout>

@@ -1,5 +1,10 @@
 ---
 import Layout from "./Layout.astro";
+import type { InferEntrySchema } from 'astro:content';
+interface Props {
+  frontmatter: InferEntrySchema<'blog'>;
+}
+
 const { frontmatter } = Astro.props;
 ---
 
