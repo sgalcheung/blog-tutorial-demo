@@ -1,11 +1,15 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-const allPosts = await Astro.glob("../posts/*.md");
-const tags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
-const title = "Tag Index";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const allPosts = Object.values(
+  import.meta.glob("../posts/*.md", { eager: true })
+);
+const tags = [
+  ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+];
+const pageTitle = "Tag Index";
 ---
 
-<Layout title={title}>
+<BaseLayout pageTitle={pageTitle}>
   <div class="tags">
     {
       tags.map((tag) => (
@@ -15,24 +19,24 @@ const title = "Tag Index";
       ))
     }
   </div>
-</Layout>
+</BaseLayout>
 
 <style>
-    a {
-      color: #00539F;
-    }
-  
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  
-    .tag {
-      margin: 0.25em;
-      border: dotted 1px #a1a1a1;
-      border-radius: .5em;
-      padding: .5em 1em;
-      font-size: 1.15em;
-      background-color: #F8FCFD;
-    }
-  </style>
+  a {
+    color: #00539f;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    font-size: 1.15em;
+    background-color: #f8fcfd;
+  }
+</style>
